@@ -46,11 +46,9 @@ const calculateRoundOutcome = (opponentMove, ownMove) => {
         return 3;
       }
       break;
-
     default:
       break;
   }
-  return roundPoints;
 };
 
 const pointsForMove = (ownMove) => {
