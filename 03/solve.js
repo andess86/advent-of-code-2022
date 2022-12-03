@@ -8,8 +8,13 @@ const input = fs.readFileSync("input.txt", "utf-8", (input, err) => {
 // 0 - 51 (+1)
 const priorities = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let priorityScore = 0;
-let faultyItems = [];
 let rucksacks = [];
+let faultyItems = [];
+
+let badgeScore = 0;
+let rucksacksAllContent = input.split("\n");
+let elveGroups = [];
+let badges = [];
 
 const massageData = () => {
   input.split("\n").forEach((rucksack) => {
@@ -40,5 +45,42 @@ const sumScore = () => {
   massageData();
   findDuplicates();
   sumScore();
-  console.log(priorityScore);
 })();
+
+const groupElves = () => {
+  for (let index = 0; index < rucksacksAllContent.length; index += 3) {
+    elveGroups.push([
+      rucksacksAllContent[index],
+      rucksacksAllContent[index + 1],
+      rucksacksAllContent[index + 2],
+    ]);
+  }
+};
+
+const findBadge = () => {
+  elveGroups.forEach((group, i) => {
+    const [firstElve, secondElve, thirdElve] = group;
+
+    for (const item of firstElve) {
+      if (secondElve.includes(item) && thirdElve.includes(item)) {
+        badges.push(item);
+        break;
+      }
+    }
+  });
+};
+
+const sumBadgeScore = () => {
+  badges.forEach((item) => {
+    badgeScore += priorities.indexOf(item) + 1;
+  });
+};
+
+(() => {
+  groupElves();
+  findBadge();
+  sumBadgeScore();
+})();
+
+console.log(`Priority score: ${priorityScore}`);
+console.table(`Badge score: ${badgeScore}`);
