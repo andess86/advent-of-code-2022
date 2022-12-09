@@ -80,5 +80,4 @@ for (let row = 0; row < numberOfRows; row++) {
   }
 }
 console.log(visibility);
-console.log(allTreesScore.sort((a, b) => a - b).reverse()); // Should work?!?!
-//157850  - not right answer :/
+console.log(allTreesScore.sort((a, b) => a - b).reverse());
