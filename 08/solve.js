@@ -50,17 +50,16 @@ const isVisible = (row, col) => {
 };
 
 const getScenicScore = (row, col) => {
-  if (isTreeAtEdge(row, col)) return 0;
-
   const [rowValues, colValues] = [
     treeMatrix[row],
     Array.from({ length: numberOfRows }, (_, i) => treeMatrix[i][col]),
   ];
 
   const treeScore = (trees) => {
+    if (isTreeAtEdge(row, col)) return 0;
     for (const [i, x] of trees.entries()) {
       if (x >= treeMatrix[row][col] || i === trees.length - 1) {
-        return i;
+        return i + 1;
       }
     }
   };
